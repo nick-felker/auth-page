@@ -15,7 +15,6 @@ const initialState:UserInterface = {
 
 
 
-
 export const userReducer = createSlice({
     name: 'user',
     initialState,

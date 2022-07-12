@@ -5,3 +5,6 @@ export interface UserInterface{
     name: string;
     surname: string;
 }
+export interface PageInterface{
+    pageAddres: string;
+}
