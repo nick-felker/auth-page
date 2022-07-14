@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Registration from '../src/components/registration';
+import {Registration, selectUserObj, useAppSelector, UserInterface} from './';
 
 
 
@@ -9,10 +9,16 @@ interface Props{
 }
 
 function App(props:Props) {
+  const userObj:UserInterface = useAppSelector(selectUserObj);
 
   return(
     <>
-      <Registration/>
+        {userObj.authFlag === true ? 
+          <></>
+          :
+          <Registration/>
+
+        }
       
     </>
   )

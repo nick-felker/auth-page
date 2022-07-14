@@ -11,6 +11,7 @@ const initialState:UserInterface = {
     surname: '',
     email: '',
     phoneNumber: '',
+    password: '',
 }
 
 

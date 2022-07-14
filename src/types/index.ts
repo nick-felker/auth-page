@@ -1,9 +1,11 @@
 export interface UserInterface{
-    authFlag: boolean;
-    email: string;
-    phoneNumber: string;
-    name: string;
-    surname: string;
+    authFlag?: boolean;
+    email?: string;
+    phoneNumber?: string;
+    name?: string;
+    surname?: string;
+    password?: string;
+    repeatPassword?: string;
 }
 export interface PageInterface{
     pageAddres: string;

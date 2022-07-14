@@ -6,7 +6,7 @@ import { PageInterface } from "../../../types";
 
 
 const initialState:PageInterface = {
-    pageAddres: '',
+    pageAddres: 'firstStep',
 }
 
 
@@ -15,11 +15,11 @@ export const pageReducer = createSlice({
     name: 'page',
     initialState,
     reducers:{
-        changeUserObj: (state, {payload}: PayloadAction<PageInterface>)=>{
+        changePageObj: (state, {payload}: PayloadAction<PageInterface>)=>{
             return {...state, ...payload};
         },
     }
 })
 
-export const {changeUserObj}  = pageReducer.actions;
+export const {changePageObj}  = pageReducer.actions;
 export default pageReducer.reducer;
