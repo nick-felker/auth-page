@@ -9,30 +9,20 @@ interface Props{
 
 function Header(props:Props){
     const userObj: UserInterface = useAppSelector(selectUserObj);
-    const {
-        register,
-        formState: {
-            errors,
-        },
-        handleSubmit,
-    } = useForm();
+    
 
     return(
         <ExternalWrapper>
-            <Logo src="./images/logo.svg"/>
+            <Logo draggable={false} src="./images/logo.svg"/>
             {userObj.authFlag === false ? null : <UserNav/>}
-            <RegisterForm>
-                
-            </RegisterForm>
+            
         </ExternalWrapper>
     )
 }
 
 
 
-const RegisterForm = styled.form`
 
-`
 
 const UserNav = styled.div`
     width: 50px;

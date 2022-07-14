@@ -25,33 +25,33 @@ function Registration(props:Props){
     
     // const onSubmit: SubmitHandler<RegistrationFormProps> = data => console.log(data);
     const { register, handleSubmit } = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
-    
+    const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
+
 
     return(
         <>
             <Header/>
-            
             <RegistrationForm onSubmit={handleSubmit(onSubmit)}>
                 <FormTitle>Регистрация</FormTitle>
                 <EmailLabel>
                     <LabelText>Электронная почта</LabelText>
-                    <Input type='text' placeholder="example@mail.ru" {...register("email")} />
+                    <Input type="text" placeholder="example@mail.ru" {...register('email')}/>
                 </EmailLabel>
                 <PasswordLabel>
-                    <LabelText>Пароль</LabelText>
-                    <Input type='text' placeholder="Введите пароль" {...register("password")} />
+                    <LabelText>Введите пароль</LabelText>
+                    <Input type="password" placeholder="" {...register('password')}/>
                 </PasswordLabel>
                 <RepeatPasswordLabel>
-                    <LabelText>Повтор пароля</LabelText>
-                    <Input placeholder="Повторите пароль" type="email" {...register("repeatPassword")} />
+                    <LabelText>Повторите пароль</LabelText>
+                    <Input type="password" placeholder="" {...register('repeatPassword')}/>
                 </RepeatPasswordLabel>
-                <FormButton active={true} text="Продолжить"/>
+                <FormButton text="Продолжить" active={true}/>
                 <AlreadyHaveAccountWrapper>
                     <HaveAccountText>Уже есть аккаунт?</HaveAccountText>
                     <HaveAccountLink>Войти</HaveAccountLink>
                 </AlreadyHaveAccountWrapper>
             </RegistrationForm>
+            
         </>
     )
 }
@@ -88,11 +88,12 @@ const RepeatPasswordLabel = styled.label`
 `
 
 const RegistrationForm = styled.form`
+    
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    margin: 80px auto 0px auto;
     width: 444px;
     background: #FFFFFF;
     box-shadow: 0px 12px 26px rgba(232, 233, 236, 0.57);
@@ -120,6 +121,7 @@ const HaveAccountLink = styled.a`
     font-weight: 500;
     margin-left: 10px;
     font-size: 14px;
+    cursor: pointer;
 `
 
 

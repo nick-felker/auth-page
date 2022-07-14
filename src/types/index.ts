@@ -8,3 +8,12 @@ export interface UserInterface{
 export interface PageInterface{
     pageAddres: string;
 }
+export interface RegistrationPageInterface{
+    emailInputFailed: boolean;
+    passwordInputFailed: boolean;
+    repeatPasswordInputFailed: boolean;
+}
+export interface LoginPageInterface{
+    emailInputFailed: boolean;
+    passwordInputFailed: boolean;
+}
