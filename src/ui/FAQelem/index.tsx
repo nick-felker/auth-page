@@ -34,6 +34,7 @@ function FAQelem({title, advancedInfo}:Props){
 
 const Title = styled.p`
     font-size: 16px;
+    text-align: left;
     font-weight: 500;
 `
 const ShowButton = styled.img`

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {Header, selectUserObj, useAppSelector, UserInterface, Button, FAQelem} from '../../';
 
@@ -5,6 +6,10 @@ import {Header, selectUserObj, useAppSelector, UserInterface, Button, FAQelem} f
 function Application(){
 
     const userObj:UserInterface = useAppSelector(selectUserObj);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    useEffect(()=>{
+        setWindowWidth(window.innerWidth);
+    }, [window.innerWidth])
     return(
         <ExternalWrapper>
             <Header/>
@@ -13,7 +18,8 @@ function Application(){
                     <MyProfileText>Мой профиль</MyProfileText>
                     <MyProfileEditWrapper>
                         <MyProfileEditIcon src="./images/edit.svg"/>
-                        <MyProfileEditText>Редактировать</MyProfileEditText>
+                        {windowWidth <= 500 ? null : <MyProfileEditText>Редактировать</MyProfileEditText> }
+                        
                     </MyProfileEditWrapper>
                 </MyProfileWrapper>
                 <UserDataWrapper>
@@ -95,10 +101,16 @@ const MyProfileWrapper = styled.div`
     display: flex;
     align-items: center;
     margin-left: 110px;
+    @media(max-width: 900px){
+        margin-left: 40px;
+    }
 `
 const MyProfileText = styled.h1`
     font-weight: 600;
     font-size: 36px;
+    @media(max-width: 400px){
+        font-size: 25px;
+    }
 `
 const MyProfileEditWrapper = styled.div`
     display: flex;
@@ -125,6 +137,10 @@ const UserDataWrapper = styled.div`
     align-items: center;
     margin-top: 35px;
     margin-left: 110px;
+    flex-wrap: wrap;
+    @media(max-width: 900px){
+        margin-left: 40px;
+    }
 `
 
 const NameDataWrapper = styled.div`
@@ -153,6 +169,9 @@ const SurnameDataText = styled.p`
 `
 const PhoneDataWrapper = styled.div`
     margin-right: 60px;
+    @media(max-width: 380px){
+        margin-top: 24px;
+    }
 `
 const PhoneDataTitle = styled.p`
     margin-bottom: 7px;
@@ -165,6 +184,9 @@ const PhoneDataText = styled.p`
 `
 const EmailDataWrapper = styled.div`
     margin-right: 60px;
+    @media(max-width: 590px){
+        margin-top: 24px;
+    }
 `
 const EmailDataTitle = styled.p`
     margin-bottom: 7px;
@@ -186,40 +208,68 @@ const ProductivityWrapper = styled.div`
     position: relative;
     width: 90%;
     padding: 5px 250px 0px 40px;
+    @media(max-width: 1130px){
+        padding: 5px 40px 0px 40px;
+    }
+    @media(max-width: 800px){
+        flex-direction: column;
+        justify-content: center;
+        padding: 30px 16px 0px 16px;
+        align-items: center;
+    }
 `
 const ProductivityLeftSide = styled.div`
+    @media(max-width: 800px){
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 `
 const ProductivityTitle = styled.h3`
     font-size: 24px;
     font-weight: 600;
     color: #0B1332;
     margin-bottom: 15px;
+    text-align: center;
+    @media(max-width: 380px){
+        font-size: 18px;
+    }
 `
 const ProductivitySubTitle = styled.p`
     font-weight: 500;
+    text-align: center;
     font-size: 16px;
     color: #0B1332;
     margin-bottom: 36px;
+    @media(max-width: 380px){
+        font-size: 14px;
+    }
 `
 const ProductivityButtonWrapper = styled.div`
-
+    
 `
 
 const ProductivityImageSide = styled.div`
 
 `
 const ProductivityImage = styled.img`
-
+    @media(max-width: 800px){
+        margin-top: 50px;
+    }
 `
 const FAQWrapper = styled.div`
-    margin-left: 110px;
+    margin: 0px auto;
     position: relative;
     width: 90%;
+    text-align: left;
+    
 `
 const FAQTitle = styled.h1`
     font-size: 24px;
     font-weight: 600;
     color: #0B1332;
+    margin-left: 15px;
     margin-bottom: 36px;
 `
 const FAQelemsWrapper = styled.div`

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import {selectUserObj, useAppSelector, UserInterface} from '../../';
 
 interface Props{
@@ -9,11 +10,13 @@ interface Props{
 
 function UserNav(){
     const userObj:UserInterface = useAppSelector(selectUserObj);
+    
     return(
        <UserNavWrapper>
             <UserName>{userObj.name}</UserName>
             <LogoutWrapper>
                 <LogoutText>Выйти</LogoutText>
+                
                 <LogoutButton src="./images/logout.svg" />
             </LogoutWrapper>
        </UserNavWrapper>
@@ -22,12 +25,16 @@ function UserNav(){
 
 
 function Header(props:Props){
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    useEffect(()=>{
+        setWindowWidth(window.innerWidth);
+    }, [])
     const userObj: UserInterface = useAppSelector(selectUserObj);
     
 
     return(
         <ExternalWrapper>
-            <Logo draggable={false} src="./images/logo.svg"/>
+            {windowWidth <= 450 ? <Logo draggable={false} src='./images/lonlyLogo.svg'/> : <Logo draggable={false} src="./images/logo.svg"/>}
             {userObj.authFlag === false ? null : <UserNav/>}
             
         </ExternalWrapper>
