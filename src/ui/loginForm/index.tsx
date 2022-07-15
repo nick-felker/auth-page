@@ -8,20 +8,14 @@ export type RegistrationFormFields = {
   firstName: string;
 };
 
-function RegistrationForm(){
+function LoginForm(){
     interface FormValues{
       email:string;
       password:string;
-      repeatPassword: string;
     }
     const dispatch = useAppDispatch();
     const userObj = useAppSelector(selectUserObj);
     const { register, handleSubmit, getFieldState, getValues } = useForm<FormValues>({
-      defaultValues: {
-        email: userObj.email,
-        password: userObj.password,
-        repeatPassword: userObj.repeatPassword,
-      },
       mode: 'onChange',
       
     });
@@ -37,21 +31,19 @@ function RegistrationForm(){
 
 
 
-    function registrateUser(values:FormValues){
-      console.log('succes!');
-      !values.email.trim() === true ? setMailErrorFlag('error') : setMailErrorFlag('ok');
-      values.password === values.repeatPassword ? setPasswordsErrorFlag('ok') : setPasswordsErrorFlag('error');
-      if(emailErrorFlag === 'ok' && passwordsErrorFlag === 'ok'){
-        dispatch(changePageObj({pageAddres: 'secondStep'}));
-        return true;
-      }
-      return false;
+    function authUser(values:FormValues){
+        axios.post('http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/auth/login', {
+            email: getValues('email'),
+            password: getValues('password'),
+        })
+        dispatch(changeUserObj({authFlag: true}));
+        
       
     } 
 
     function updateUserObjAndChangeButtonActiveFlag(){
       dispatch(changeUserObj({email: getValues('email'), password: getValues('password')}))
-      if(!getValues('email').trim() || !getValues('password').trim() || !getValues('repeatPassword').trim()){
+      if(!getValues('email').trim() || !getValues('password').trim()){
         setButtonActiveFlag(false);
       }
       else{
@@ -60,13 +52,9 @@ function RegistrationForm(){
       if(!getValues('password').trim()){
         setPasswordShowFlag(true);
       }
-      if(!getValues('repeatPassword').trim()){
-        setRepeatPasswordShowFlag(true);
-      }
-
     }
     useEffect(()=>{
-      if(userObj.password.trim()) setPasswordShowFlag(true); setRepeatPasswordShowFlag(true);
+      if(userObj.password.trim()) setPasswordShowFlag(true);
     }, [])
 
     
@@ -76,8 +64,8 @@ function RegistrationForm(){
 
   return(
 
-    <Form action='' method='post' onChange={updateUserObjAndChangeButtonActiveFlag} onSubmit={handleSubmit(registrateUser)}>
-      <FormTitle>Регистрация</FormTitle>
+    <Form onMouseMove={updateUserObjAndChangeButtonActiveFlag} action='' method='post' onChange={updateUserObjAndChangeButtonActiveFlag} onSubmit={handleSubmit(authUser)}>
+      <FormTitle>Авторизация</FormTitle>
                 <EmailLabel>
                     <LabelText>Электронная почта</LabelText>
                     <Input
@@ -105,43 +93,17 @@ function RegistrationForm(){
                         src={passwordVisibilityFlag === true ? './images/showedPassword.svg' : './images/hidePassword.svg'} 
                         onClick={()=>setPasswordVisibilityFlag(!passwordVisibilityFlag)}/> : null}
                 </PasswordLabel>
-                <RepeatPasswordLabel>
-                    <LabelText>Повторите пароль</LabelText>
-                    <Input
-                      value={userObj.repeatPassword}
-                      error={passwordsErrorFlag}
-                      type={repeatPasswordVisibilityFlag === true ? 'text' : 'password'}
-                      placeholder='Повторите пароль'
-                      {...register('repeatPassword', {
-                        
-                      })}
-                    />
-                    {repeatPasswordShowFlag === true ? <ShowPasswordButton
-                        src={repeatPasswordVisibilityFlag === true ? './images/showedPassword.svg' : './images/hidePassword.svg'} 
-                        onClick={()=>setRepeatPasswordVisibilityFlag(!repeatPasswordVisibilityFlag)}/> : null}
-                    {passwordsErrorFlag === 'error' ? <PasswordNotEqualErrorText>Пароли не совпадают</PasswordNotEqualErrorText> : null}
-                    
-                </RepeatPasswordLabel>
                 <FormButton text="Продолжить" active={buttonActiveFlag}/>
-                <AlreadyHaveAccountWrapper>
-                    <HaveAccountText>Уже есть аккаунт?</HaveAccountText>
-                    <HaveAccountLink onClick={()=>{dispatch(changeUserObj({createdFlag: true})); dispatch(changePageObj({pageAddres: 'secondStep'}))}}>Войти</HaveAccountLink>
-                </AlreadyHaveAccountWrapper>
+                <NotHaveAccountWrapper>
+                    <NotHaveAccountText>Еще нет аккаунта?</NotHaveAccountText>
+                    <NotHaveAccountLink onClick={()=>{dispatch(changeUserObj({createdFlag: false})); dispatch(changePageObj({pageAddres: 'firstStep'}))}}>Зарегистрироваться</NotHaveAccountLink>
+                </NotHaveAccountWrapper>
                 
     </Form>
   )
 }
 
-const PasswordNotEqualErrorText = styled.p`
-  font-weight: 400;
-  font-size: 14;
-  font-family: Gilroy;
-  color: #F46666;
-  margin-top: 5px;
-  position: absolute;
-  padding-top: 70px;
-  z-index: 1;
-`
+
 
 const Form = styled.form`
   font-family: Gilroy;
@@ -154,16 +116,16 @@ const Form = styled.form`
   border-radius: 20px;
 `
 
-const AlreadyHaveAccountWrapper = styled.div`
+const NotHaveAccountWrapper = styled.div`
     display: flex;
     margin-top: 36px;
     align-items: center;
 `
-const HaveAccountText = styled.p`
+const NotHaveAccountText = styled.p`
     font-size: 14px;
     font-weight: 400;
 `
-const HaveAccountLink = styled.a`
+const NotHaveAccountLink = styled.a`
     color: #466EFA;
     font-weight: 500;
     margin-left: 10px;
@@ -212,4 +174,4 @@ const RepeatPasswordLabel = styled.label`
     margin-bottom: 48px;
 `
 
-export default RegistrationForm;
+export default LoginForm;

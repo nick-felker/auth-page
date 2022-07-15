@@ -4,3 +4,5 @@ export {default as Input} from './input';
 export {default as FormButton} from './formButton';
 export {default as RegistrationForm} from './registrationForm';
 export {default as FillInfoForm} from './fillInfoForm';
+export {default as LoginForm} from './loginForm';
+export {default as Button} from './button';

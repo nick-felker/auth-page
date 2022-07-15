@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Registration, selectUserObj, useAppSelector, UserInterface} from './';
+import {Registration, selectUserObj, useAppSelector, UserInterface, Application, Login} from './';
 
 
 
@@ -13,11 +13,13 @@ function App(props:Props) {
 
   return(
     <>
-        {userObj.authFlag === true ? 
-          <></>
-          :
+        {userObj.createdFlag === false ? 
           <Registration/>
-
+          :
+          userObj.authFlag === true ?
+          <Application/>
+          :
+          <Login/>
         }
       
     </>

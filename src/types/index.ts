@@ -5,6 +5,7 @@ export interface UserInterface{
     name?: string;
     surname?: string;
     password?: string;
+    createdFlag?: boolean;
     repeatPassword?: string;
 }
 export interface PageInterface{

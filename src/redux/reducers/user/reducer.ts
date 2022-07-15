@@ -12,6 +12,7 @@ const initialState:UserInterface = {
     email: '',
     phoneNumber: '',
     password: '',
+    createdFlag: false,
 }
 
 

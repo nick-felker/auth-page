@@ -7,14 +7,10 @@ interface Props{
     active: boolean;
 }
 
-function Button({text, active }:Props){
+function FormButton({text, active }:Props){
     return(
         <>
-            {active === false ? 
-                <Root disabled={true} active={active} type={'button'} value={text}/>
-                :
-                <Root active={active} type={'submit'} value={text}/>
-            }
+            <Root active={active}>{text}</Root>
         </> 
     )
 }
@@ -24,7 +20,7 @@ interface RootProps{
     active: boolean;
 }
 
-const Root = styled.input<RootProps>`
+const Root = styled.button<RootProps>`
     font-family: Gilroy;
     background-color: #466EFA;
     border: none;
@@ -38,4 +34,4 @@ const Root = styled.input<RootProps>`
     opacity: ${props=>props.active === true ? '1' : '0.5'};
 `
 
-export default Button;
+export default FormButton;

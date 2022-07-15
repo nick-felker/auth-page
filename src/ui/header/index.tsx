@@ -6,6 +6,21 @@ interface Props{
 }
 
 
+
+function UserNav(){
+    const userObj:UserInterface = useAppSelector(selectUserObj);
+    return(
+       <UserNavWrapper>
+            <UserName>{userObj.name}</UserName>
+            <LogoutWrapper>
+                <LogoutText>Выйти</LogoutText>
+                <LogoutButton src="./images/logout.svg" />
+            </LogoutWrapper>
+       </UserNavWrapper>
+    )
+}
+
+
 function Header(props:Props){
     const userObj: UserInterface = useAppSelector(selectUserObj);
     
@@ -22,12 +37,31 @@ function Header(props:Props){
 
 
 
-
-const UserNav = styled.div`
-    width: 50px;
-    height: 50px;
-    background-color: yellow;
+const UserNavWrapper = styled.div`
+    display: flex;
+    align-items: center;
 `
+const UserName = styled.p`
+    font-size: 16px;
+    margin-right: 30px;
+    margin-bottom: 3px;
+    font-weight: 500;
+`
+const LogoutButton = styled.img`
+
+`
+const LogoutWrapper = styled.div`
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+`
+const LogoutText = styled.p`
+    color: #466EFA;
+    padding-bottom: 3px;
+    margin-right: 10px;
+    font-family: 500;
+`
+
 
 const ExternalWrapper = styled.div`
    padding: 26px 128px 26px 110px;
@@ -40,6 +74,7 @@ const ExternalWrapper = styled.div`
    @media(max-width: 430px){
     padding: 20px 15px 20px 20px;
    }
+   font-family: Gilroy;
 `
 
 const Logo = styled.img`

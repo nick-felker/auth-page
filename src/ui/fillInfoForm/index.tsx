@@ -23,9 +23,20 @@ function RegistrationForm(){
     const [surnameErrorFlag, setSurnameErrorFlag] = useState('none');
     const [phoneErrorFlag, setPhoneErrorFlag] = useState('none');
     const [buttonActiveFlag, setButtonActiveFlag] = useState(false);
-    function registrateUser(values: FormValues){
-        console.log(userObj);        
-
+    function finallyRegistrateUser(values: FormValues){
+        console.log(userObj);
+        axios.post('http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/auth/register',{
+            email: userObj.email,
+            name: userObj.name,
+            surname: userObj.surname,
+            phone: userObj.phoneNumber,
+            password: userObj.password,
+        })
+        .then(response=>{
+            console.log(response);
+        })
+        dispatch(changeUserObj({authFlag: true}))
+        
     } 
 
     function updateUserbj(){
@@ -43,7 +54,7 @@ function RegistrationForm(){
 
   return(
 
-    <Form onChange={updateUserbj} onSubmit={handleSubmit(registrateUser)}>
+    <Form onChange={updateUserbj} onSubmit={handleSubmit(finallyRegistrateUser)}>
       <FormTitle>Заполните данные о себе</FormTitle>
                 <EmailLabel>
                     <LabelText>Имя</LabelText>
