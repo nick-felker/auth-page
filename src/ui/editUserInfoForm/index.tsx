@@ -106,13 +106,22 @@ function EditUserInfoForm(){
 
 const Form = styled.form`
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     margin-top: 35px;
     margin-left: 110px;
     flex-wrap: wrap;
     @media(max-width: 900px){
         margin-left: 40px;
     }
+    @media(max-width: 1310px){
+      align-items: center;
+    }
+    @media(max-width: 800px){
+      flex-direction: column;
+      justify-content: center;
+      margin: 40px auto 0px auto;
+    }
+    
 `
 
 const LabelText = styled.p`
@@ -124,19 +133,30 @@ const LabelText = styled.p`
 
 const NameLabel = styled.label`
     margin-right: 20px;
+    margin-bottom: 20px;
+    @media(max-width: 800px){
+      margin-right: 0px;
+    }
 
 `
 const SurnameLabel = styled.label`
     display: flex;
     flex-direction: column;
     margin-right: 20px;
+    margin-bottom: 20px;
+    @media(max-width: 800px){
+      margin-right: 0px;
+    }
     
 `
 const PhoneLabel = styled.label`
     display: flex;
     margin-right: 20px;
     flex-direction: column;
-   
+    margin-bottom: 20px;
+    @media(max-width: 800px){
+      margin-right: 0px;
+    }
 `
 
 
