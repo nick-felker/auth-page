@@ -10,11 +10,6 @@ interface Props{
 function SecondStep(props:Props){
     const dispatch = useAppDispatch();
 
-    function changePageAddres(){
-        dispatch(changePageObj({pageAddres: 'firstStep'}));
-    }
-
-
     return(
         <>
             <Header/>
@@ -42,6 +37,15 @@ const GoToThePrevStepWrapper = styled.div`
         opacity: 0.5;
     }
     margin-left: 90px;
+    @media(max-width: 980px){
+        margin-left: 50px;
+        margin-top: 100px;
+    }
+    @media(max-width: 772px){
+        justify-content: center;
+        position: relative;
+        margin: 40px 0px 0px 0px;
+    }
 `
 const GoToThePrevStepButton = styled.img`
     margin-right: 10px;
@@ -54,11 +58,15 @@ const GoToThePrevStepText = styled.p`
 `
 
 const FormWrapper = styled.div`
+
     margin-top: 100px;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    @media(max-width: 772px){
+        margin-top: 30px;
+    }
 `
 
 export default SecondStep;

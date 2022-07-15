@@ -44,7 +44,7 @@ function Application(){
                             <EmailDataTitle>Электронная почта</EmailDataTitle>
                             <EmailDataText>{userObj.email || 'Н/Д'}</EmailDataText>
                         </EmailDataWrapper>
-                    </UserDataWrapper>
+                    </UserDataWrapper>  
                     :
                     <EditUserInfoForm/>
                 }

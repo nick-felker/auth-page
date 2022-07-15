@@ -10,6 +10,9 @@ interface Props{
     error?: string;
     value?: string;
     onChange: any;
+    pattern?: any;
+    format?: any;
+    separator?: any;
 }
 
 
@@ -23,6 +26,8 @@ const Input = React.forwardRef<HTMLInputElement, Props>((props: Props, ref) => (
 
 interface RootProps{
     error?: string;
+    bgColor?: string;
+    borderStyle?: string;
 }
 
 

@@ -8,7 +8,7 @@ export type RegistrationFormFields = {
   firstName: string;
 };
 
-function RegistrationForm(){
+function FillInfoForm(){
     interface FormValues{
       name:string;
       surname:string;
@@ -18,7 +18,6 @@ function RegistrationForm(){
     const userObj = useAppSelector(selectUserObj);
     const { register, handleSubmit, getValues } = useForm<FormValues>();
     
-    const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
     const [nameErrorFlag, setNameErrorFlag] = useState('none');
     const [surnameErrorFlag, setSurnameErrorFlag] = useState('none');
     const [phoneErrorFlag, setPhoneErrorFlag] = useState('none');
@@ -101,22 +100,17 @@ const Form = styled.form`
   padding: 80px 89px 60px 89px;
   border-radius: 20px;
 `
-
-
 const LabelText = styled.p`
     font-size: 12px;
     font-weight: 400;
     color: #0B1332;
     margin-bottom: 5px;
 `
-
-
 const FormTitle = styled.h1`
     font-weight: 500;
     font-size: 20px;
     margin-bottom: 48px;
 `
-
 const EmailLabel = styled.label`
     display: flex;
     flex-direction: column;
@@ -133,4 +127,4 @@ const RepeatPasswordLabel = styled.label`
     margin-bottom: 48px;
 `
 
-export default RegistrationForm;
+export default FillInfoForm;

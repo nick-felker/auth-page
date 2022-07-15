@@ -29,8 +29,14 @@ function EditUserInfoForm(){
 
     function editUser(values:FormValues){
         dispatch(changePageObj({editUserDataFlag: false}));
-        
-      
+        axios.patch('http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users', {
+          headers: {
+            Authorization: "Bearer" + localStorage.getItem('token'),
+          }
+        })
+        .then(response=>{
+          console.log(response);
+        })
     } 
 
     function updateUserObj(){

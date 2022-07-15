@@ -1,5 +1,6 @@
+import axios from "axios";
 import styled from "styled-components";
-import { useAppSelector, selectPageObj, useAppDispatch, changePageObj } from "../../";
+import { useAppSelector, selectPageObj, useAppDispatch, changePageObj, changeUserObj } from "../../";
 
 
 
@@ -10,13 +11,25 @@ interface Props{
 function LogoutModalWindow({}:Props){
     const pageObj = useAppSelector(selectPageObj);
     const dispatch = useAppDispatch();
+
+    function logout(){
+        dispatch(changePageObj({pageAddres: 'secondStep'}));
+        dispatch(changeUserObj({createdFlag: true, authFlag: false}));
+        dispatch(changePageObj({logoutModalFlag: false}));
+        axios.post('http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/auth/log-out', {
+            headers: {
+                Authorization: "Bearer" + localStorage.getItem('token'),
+            }
+        })
+    }
+
     return(
         <ExternalWrapper>
             <ExitIcon src="./images/exit.svg" onClick={()=>dispatch(changePageObj({logoutModalFlag: false}))} />
             <AreYouSureLogout>Вы уверены что хотите выйти из аккаунта?</AreYouSureLogout>
             <BothButtonsWrapper>
                 <Button color="#466EFA" bgColor="#DAE2FF" onClick={()=>dispatch(changePageObj({logoutModalFlag: false}))} >Отмена</Button>
-                <Button color="white" bgColor="#466EFA" onClick={()=>alert('В разработке')} >Выйти</Button>
+                <Button color="white" bgColor="#466EFA" onClick={logout}>Выйти</Button>
             </BothButtonsWrapper>
         </ExternalWrapper>
     )

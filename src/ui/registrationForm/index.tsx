@@ -38,15 +38,11 @@ function RegistrationForm(){
 
 
     function registrateUser(values:FormValues){
-      console.log('succes!');
-      !values.email.trim() === true ? setMailErrorFlag('error') : setMailErrorFlag('ok');
-      values.password === values.repeatPassword ? setPasswordsErrorFlag('ok') : setPasswordsErrorFlag('error');
       if(emailErrorFlag === 'ok' && passwordsErrorFlag === 'ok'){
         dispatch(changePageObj({pageAddres: 'secondStep'}));
-        return true;
+        dispatch(changeUserObj({createdFlag: false, authFlag: false}))
       }
-      return false;
-      
+      return;
     } 
 
     function updateUserObjAndChangeButtonActiveFlag(){
@@ -63,20 +59,17 @@ function RegistrationForm(){
       if(!getValues('repeatPassword').trim()){
         setRepeatPasswordShowFlag(true);
       }
+      !getValues('email').trim() === true ? setMailErrorFlag('error') : setMailErrorFlag('ok');
+      getValues('password') === getValues('repeatPassword') ? setPasswordsErrorFlag('ok') : setPasswordsErrorFlag('error');
 
     }
     useEffect(()=>{
       if(userObj.password.trim()) setPasswordShowFlag(true); setRepeatPasswordShowFlag(true);
     }, [])
 
-    
-
-
-
-
   return(
 
-    <Form action='' method='post' onChange={updateUserObjAndChangeButtonActiveFlag} onSubmit={handleSubmit(registrateUser)}>
+    <Form action='' onChange={updateUserObjAndChangeButtonActiveFlag} onSubmit={handleSubmit(registrateUser)}>
       <FormTitle>Регистрация</FormTitle>
                 <EmailLabel>
                     <LabelText>Электронная почта</LabelText>
@@ -152,6 +145,12 @@ const Form = styled.form`
   box-shadow: 0px 12px 26px rgba(232, 233, 236, 0.57);
   padding: 80px 89px 60px 89px;
   border-radius: 20px;
+  @media(max-width: 486px){
+    padding: 80px 30px 60px 30px;
+  }
+  @media(max-width: 350px){
+    padding: 60px 15px 50px 15px;
+  }
 `
 
 const AlreadyHaveAccountWrapper = styled.div`
