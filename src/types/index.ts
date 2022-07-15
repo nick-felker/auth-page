@@ -9,7 +9,9 @@ export interface UserInterface{
     repeatPassword?: string;
 }
 export interface PageInterface{
-    pageAddres: string;
+    logoutModalFlag?: boolean; 
+    pageAddres?: string;
+    editUserDataFlag?: boolean;
 }
 export interface RegistrationPageInterface{
     emailInputFailed: boolean;

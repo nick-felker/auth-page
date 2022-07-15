@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import {Header, selectUserObj, useAppSelector, UserInterface, Button, FAQelem} from '../../';
+import {Header, selectUserObj, useAppSelector, UserInterface, Button, FAQelem, EditUserInfoForm, useAppDispatch, changePageObj, selectPageObj, PageInterface} from '../../';
 
 
 function Application(){
-
+    const dispatch = useAppDispatch();
+    const pageObj:PageInterface = useAppSelector(selectPageObj)
     const userObj:UserInterface = useAppSelector(selectUserObj);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     useEffect(()=>{
@@ -16,30 +17,37 @@ function Application(){
             <InnerWrapper>
                 <MyProfileWrapper>
                     <MyProfileText>Мой профиль</MyProfileText>
-                    <MyProfileEditWrapper>
-                        <MyProfileEditIcon src="./images/edit.svg"/>
-                        {windowWidth <= 500 ? null : <MyProfileEditText>Редактировать</MyProfileEditText> }
-                        
-                    </MyProfileEditWrapper>
+                    {pageObj.editUserDataFlag === false ? 
+                        <MyProfileEditWrapper onClick={()=>dispatch(changePageObj({editUserDataFlag: true}))}>
+                            <MyProfileEditIcon src="./images/edit.svg"/>
+                            {windowWidth <= 500 ? null : <MyProfileEditText>Редактировать</MyProfileEditText> }
+                        </MyProfileEditWrapper>
+                        :
+                        null
+                    }
                 </MyProfileWrapper>
-                <UserDataWrapper>
-                    <NameDataWrapper>
-                        <NameDataTitle>Имя</NameDataTitle>
-                        <NameDataText>{userObj.name || 'Н/Д'}</NameDataText>
-                    </NameDataWrapper>
-                    <SurnameDataWrapper>
-                        <SurnameDataTitle>Фамилия</SurnameDataTitle>
-                        <SurnameDataText>{userObj.surname || 'Н/Д'}</SurnameDataText>
-                    </SurnameDataWrapper>
-                    <PhoneDataWrapper>
-                        <PhoneDataTitle>Телефон</PhoneDataTitle>
-                        <PhoneDataText>{userObj.phoneNumber || 'Н/Д'}</PhoneDataText>
-                    </PhoneDataWrapper>
-                    <EmailDataWrapper>
-                        <EmailDataTitle>Электронная почта</EmailDataTitle>
-                        <EmailDataText>{userObj.email || 'Н/Д'}</EmailDataText>
-                    </EmailDataWrapper>
-                </UserDataWrapper>
+                {pageObj.editUserDataFlag === false ? 
+                    <UserDataWrapper>
+                        <NameDataWrapper>
+                            <NameDataTitle>Имя</NameDataTitle>
+                            <NameDataText>{userObj.name || 'Н/Д'}</NameDataText>
+                        </NameDataWrapper>
+                        <SurnameDataWrapper>
+                            <SurnameDataTitle>Фамилия</SurnameDataTitle>
+                            <SurnameDataText>{userObj.surname || 'Н/Д'}</SurnameDataText>
+                        </SurnameDataWrapper>
+                        <PhoneDataWrapper>
+                            <PhoneDataTitle>Телефон</PhoneDataTitle>
+                            <PhoneDataText>{userObj.phoneNumber || 'Н/Д'}</PhoneDataText>
+                        </PhoneDataWrapper>
+                        <EmailDataWrapper>
+                            <EmailDataTitle>Электронная почта</EmailDataTitle>
+                            <EmailDataText>{userObj.email || 'Н/Д'}</EmailDataText>
+                        </EmailDataWrapper>
+                    </UserDataWrapper>
+                    :
+                    <EditUserInfoForm/>
+                }
                 <ProductivityWrapper>
                     <ProductivityLeftSide>
                         <ProductivityTitle>Ваша продуктивность выросла!</ProductivityTitle>
@@ -83,6 +91,8 @@ function Application(){
         </ExternalWrapper>
     )
 }
+
+
 
 const ExternalWrapper = styled.div`
     padding-bottom: 40px;

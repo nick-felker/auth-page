@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import {selectUserObj, useAppSelector, UserInterface} from '../../';
+import {selectUserObj, useAppSelector, UserInterface, LogoutModalWindow, selectPageObj, PageInterface , useAppDispatch, changePageObj} from '../../';
 
 interface Props{
     
@@ -10,16 +10,22 @@ interface Props{
 
 function UserNav(){
     const userObj:UserInterface = useAppSelector(selectUserObj);
-    
+    const pageObj:PageInterface = useAppSelector(selectPageObj)
+    const dispatch = useAppDispatch();
     return(
+        <>
        <UserNavWrapper>
+        
+        {pageObj.logoutModalFlag === true ? <LogoutModalWindow/> : null}
             <UserName>{userObj.name}</UserName>
             <LogoutWrapper>
-                <LogoutText>Выйти</LogoutText>
+                <LogoutText onClick={()=>dispatch(changePageObj({logoutModalFlag: true}))}>Выйти</LogoutText>
                 
                 <LogoutButton src="./images/logout.svg" />
             </LogoutWrapper>
        </UserNavWrapper>
+       {pageObj.logoutModalFlag === true ? <BlackOverlay/> : null}
+        </>
     )
 }
 
@@ -34,6 +40,7 @@ function Header(props:Props){
 
     return(
         <ExternalWrapper>
+            
             {windowWidth <= 450 ? <Logo draggable={false} src='./images/lonlyLogo.svg'/> : <Logo draggable={false} src="./images/logo.svg"/>}
             {userObj.authFlag === false ? null : <UserNav/>}
             
@@ -42,6 +49,16 @@ function Header(props:Props){
 }
 
 
+const BlackOverlay = styled.div`
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0; 
+    height: 100%;
+    z-index: 5;
+    background-color: #545762;
+    opacity: 0.2;
+`
 
 
 const UserNavWrapper = styled.div`

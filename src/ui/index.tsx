@@ -6,3 +6,5 @@ export {default as RegistrationForm} from './registrationForm';
 export {default as FillInfoForm} from './fillInfoForm';
 export {default as LoginForm} from './loginForm';
 export {default as Button} from './button';
+export {default as EditUserInfoForm} from './editUserInfoForm';
+export {default as LogoutModalWindow} from './logoutModalWindow';

@@ -35,7 +35,7 @@ function RegistrationForm(){
         .then(response=>{
             console.log(response);
         })
-        dispatch(changeUserObj({authFlag: true}))
+        dispatch(changeUserObj({authFlag: true, createdFlag: true}))
         
     } 
 

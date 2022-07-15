@@ -7,6 +7,8 @@ import { PageInterface } from "../../../types";
 
 const initialState:PageInterface = {
     pageAddres: 'firstStep',
+    logoutModalFlag: false,
+    editUserDataFlag: false,
 }
 
 

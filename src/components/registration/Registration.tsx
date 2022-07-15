@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import {useAppSelector, selectPageAddres , selectUserObj, UserInterface, FirstStep, SecondStep, PageInterface} from '../../';
+import {useAppSelector, selectPageObj , selectUserObj, UserInterface, FirstStep, SecondStep, PageInterface} from '../../';
 
 
 function Registration(){
-    const pageObj:PageInterface = useAppSelector(selectPageAddres)
+    const pageObj:PageInterface = useAppSelector(selectPageObj)
     return(
         <>
          {pageObj.pageAddres === 'firstStep' ? 
