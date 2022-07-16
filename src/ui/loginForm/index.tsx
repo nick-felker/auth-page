@@ -36,7 +36,7 @@ function LoginForm(){
             email: getValues('email'),
             password: getValues('password'),
         })
-        if(values.password === userObj.password || values.email === userObj.email){
+        if(values.password === userObj.password && values.email === userObj.email){
           dispatch(changeUserObj({authFlag: true, createdFlag: true}));
         }
         else{
