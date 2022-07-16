@@ -106,7 +106,7 @@ function EditUserInfoForm(){
 
 const Form = styled.form`
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     margin-top: 35px;
     margin-left: 110px;
     flex-wrap: wrap;

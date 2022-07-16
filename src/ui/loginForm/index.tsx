@@ -20,37 +20,42 @@ function LoginForm(){
       
     });
     
-
+    
     const [passwordShowFlag, setPasswordShowFlag] = useState(false);
-    const [repeatPasswordShowFlag, setRepeatPasswordShowFlag] = useState(false);
     const [passwordVisibilityFlag, setPasswordVisibilityFlag] = useState(false);
-    const [repeatPasswordVisibilityFlag, setRepeatPasswordVisibilityFlag] = useState(false);
     const [passwordsErrorFlag, setPasswordsErrorFlag] = useState('none');
     const [emailErrorFlag, setMailErrorFlag] = useState('none');
     const [buttonActiveFlag, setButtonActiveFlag] = useState(false);
+    const [mailValue, setMailValue] = useState('');
+    const [passwordValue, setPasswordValue] = useState('');
 
 
-
+    console.log(mailValue)
     function authUser(values:FormValues){
         axios.post('http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/auth/login', {
             email: getValues('email'),
             password: getValues('password'),
         })
-        dispatch(changeUserObj({authFlag: true}));
+        if(values.password === userObj.password){
+          dispatch(changeUserObj({authFlag: true, createdFlag: true}));
+        }
+        else{
+          setPasswordsErrorFlag('error');
+          setMailErrorFlag('error');
+        }
+        
         
       
     } 
 
     function updateUserObjAndChangeButtonActiveFlag(){
-      dispatch(changeUserObj({email: getValues('email'), password: getValues('password')}))
+      setMailValue(getValues('email'));
+      setPasswordValue(getValues('password'));
       if(!getValues('email').trim() || !getValues('password').trim()){
         setButtonActiveFlag(false);
       }
       else{
         setButtonActiveFlag(true);
-      }
-      if(!getValues('password').trim()){
-        setPasswordShowFlag(true);
       }
     }
     useEffect(()=>{
@@ -64,12 +69,12 @@ function LoginForm(){
 
   return(
 
-    <Form onMouseMove={updateUserObjAndChangeButtonActiveFlag} action='' method='post' onChange={updateUserObjAndChangeButtonActiveFlag} onSubmit={handleSubmit(authUser)}>
+    <Form action='' method='post' onChange={updateUserObjAndChangeButtonActiveFlag} onSubmit={handleSubmit(authUser)}>
       <FormTitle>Авторизация</FormTitle>
                 <EmailLabel>
                     <LabelText>Электронная почта</LabelText>
                     <Input
-                      value={userObj.email}
+                      value={mailValue}
                       type="text" 
                       placeholder="example@mail.ru" 
                       {...register('email',{
@@ -82,7 +87,7 @@ function LoginForm(){
                 <PasswordLabel>
                     <LabelText>Введите пароль</LabelText>
                     <Input
-                      value={userObj.password}
+                      value={passwordValue}
                       error={passwordsErrorFlag}
                       type={passwordVisibilityFlag === true ? 'text' : 'password'}
                       placeholder="Введите пароль" 
@@ -93,6 +98,8 @@ function LoginForm(){
                         src={passwordVisibilityFlag === true ? './images/showedPassword.svg' : './images/hidePassword.svg'} 
                         onClick={()=>setPasswordVisibilityFlag(!passwordVisibilityFlag)}/> : null}
                 </PasswordLabel>
+                {passwordsErrorFlag === 'error'? <ErorText>Неверный пароль или электронная почта</ErorText> : null}
+                
                 <FormButton text="Продолжить" active={buttonActiveFlag}/>
                 <NotHaveAccountWrapper>
                     <NotHaveAccountText>Еще нет аккаунта?</NotHaveAccountText>
@@ -104,6 +111,15 @@ function LoginForm(){
 }
 
 
+
+const ErorText = styled.p`
+  font-weight: 400;
+  font-size: 14;
+  font-family: Gilroy;
+  color: #F46666;
+  margin-top: 5px;
+  margin-bottom: 20px;
+`
 
 const Form = styled.form`
   font-family: Gilroy;

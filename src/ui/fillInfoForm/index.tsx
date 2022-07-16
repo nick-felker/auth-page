@@ -34,7 +34,7 @@ function FillInfoForm(){
         .then(response=>{
             console.log(response);
         })
-        dispatch(changeUserObj({authFlag: true, createdFlag: true}))
+        dispatch(changeUserObj({authFlag: false, createdFlag: true}))
         
     } 
 
